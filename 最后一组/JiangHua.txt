@@ -1,1 +1,34 @@
-辛苦了... fight together。。。
+﻿辛苦了... fight together。。。
+/**
+ * Created by acer on 2017/6/10.
+ */
+//全局对象  能在页面中直接使用的是全局对象，例如：
+//console  setTimeout  setInterval()
+//在 node  中可以直接在使用的都叫做全局对象
+//在服务端 都挂在global上了
+//1，this 前端直接打 this ，是指 window
+//2，node中，this ！== global , 在文件中使用的时候,this 不是 global是当前的作用域下的
+//3, var 自己声明的变量，不会挂载在global上,属于自己模块下，自己的作用域下!!! 。
+// 如果没有var，变量会声明到global上!!!
+//在global上声明的会找到。
+// 但是global有a=10 ,也有var a = 11 ; 会执行距离自己最近的作用域，就是11,而不是全局的global的
+
+//全局的 process 进程   buffer缓存区 内存  clearImmediate  方法，清除立即  clearInterval ...
+
+// 1) console/ log/ dir /warn /info /error ( time 和 timeEnd 计算时间差 )
+console.time('first');//first 是一个lable
+for(let i =0 ; i<1000000; i++){
+}
+console.timeEnd('first');
+
+//2) setTime 异步的
+
+function(who){
+    console.log('eat'+who);
+}
+setTimeout(fn,1000,'人','橘子');
+//setTimeout 可以传递参数，从第二个参数开始 setTimeout(fn（‘人’）,1000');不对，第一个参数不是函数了
+//时间环  node 是基于时间驱动的，事情做完为止   服务员的第二个小本
+//setImmediate(function(){});  setImmediate立即是异步方法  ，它不能写时间的
+// setImmediate setTimeout 他们的执行顺序是不确定的 setImmediate也在第二个小本上
+
