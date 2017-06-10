@@ -1,0 +1,64 @@
+node 下载
+https://nodejs.org/en/
+
+配置环境  node
+%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;D:\WebStorm 2017.1.3\bin\
+
+配置环境变量
+计算机-->属性--> 高级系统设置--> 环境变量--> path新增即可
+
+window+R 打开命令行  输入cmd 打开命令窗口 配置好环境变量，直接在命令窗口输入webstorm64即可运行
+
+异步编程回调函数
+
+能用异步（无阻塞）就不要用同步
+
+nodejs 单线程 java多线程
+多线程 感觉像同时干很多事，只是切换上下文的速度比较快，多线程可以使用多核
+
+进程 > 线程
+nodejs不能在一个进程中开多个线程，可以开多个进程（子进程）
+H5里的 webworker 开多个线程
+
+全局对象
+能在页面中直接使用的就是全局对象 console setTimeout setTimeInterval history
+在node 中可以直接使用的都叫全局对象  在服务端登录挂在了global上
+1，在文件中，直接使用当前的this，不是global
+2， var a =1;
+console.log(global.a)  //undefined
+z自己声明的变量，不会挂载在global上，如果没有var 变量会直接生命在global上
+a =1;
+console.log(global.a)  //1
+
+process 进程
+buffer 缓存
+clearImmediate:清除立即
+
+编辑器 vscode 支持调试
+1,console
+log dir warn info error time计算时间差
+
+console.time('first')//开始时间
+for(var i=0;i<1000000;i++){
+
+}
+console.timeEnd('first') //结束时间   两个输出包住要计算时间的内容
+
+2，setTimeout 异步的 这里的this都是指向自己
+function fn(who){
+console.log('eat'+who);
+}
+setTimeout（fn,1000,'人')
+//可以传递参数 从第二个参数开始
+事件环 是基于事件驱动的 相当于服务员的第二个小本
+
+setImmediate没有时间 因为是立即 时间不确定 是异步的 也是记录在第二个小本上的
+
+如果setTimeout不设置时间 ，和setImmediate谁快 不一定
+
+ 3,process
+ 获取环境变量
+ 1，区分本地开发环境和线上开发环境
+ //设置环境变量 set NODE_ENV=development
+ show in explore 找到当前文件所在位置 地址栏输入cmd 回车
+  process在cmd里设置 也只能在cmd里获取
