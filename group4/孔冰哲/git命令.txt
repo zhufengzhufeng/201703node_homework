@@ -1,0 +1,136 @@
+git的使用方式：
+1.命令行模式
+2.图形界面 sourceTree
+
+##初始化git管理的范围
+cd->change directory
+pwd->print working directory
+
+##配置当前用户信息
+用户名可以采用github账号和邮箱，没有配置过不能使用github
+git config --global user.name 'yourName'
+git config --global user.email yourEmail
+git config --list->检测查看配置列表信息
+
+======================================================================
+工作区：就是你在电脑里能看到的目录，比如你的learngit文件夹就是一个工作区。
+
+暂存区/过渡区:
+
+历史区/版本库：工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库。Git的版本库里存了很多   东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD。
+======================================================================
+##创建并进入文件夹
+mkdir docName ->创建文件夹
+cd    docName ->进入文件夹
+
+##在文件夹中初始化仓库：
+git init(初始化) ->初始化一个Git仓库
+ls       ->查看所有文件
+ls -a    ->查看隐藏文件
+如果初始化错误
+rm -rf .git
+
+##创建并操作一个文件
+touch docName ->创建一个文件
+ls            ->查看文件
+cat(catch) docName   ->查看文件中的内容
+vi  docName   ->编辑文件中的内容:
+
+编辑文件：
+i(insert)             ->插入内容
+esc:          ->命令模式下才能执行以下代码：
+wq            ->保存并退出
+q!            ->强制退出
+
+##添加文件到Git仓库，分两步：
+git add <file> ->注意，可反复多次使用，添加多个文件修改添加到暂存区；
+git commit (-m 'submit message') ->将暂存区的多个文件的所有内容提交到当前分支。
+你可以简单理解为，需要提交的文件修改通通放到暂存区，然后，一次性提交暂存区的所有修改。
+
+##随时掌握工作区的状态：
+git status(状态)         ->获取当前文件的状态信息。
+git diff(不同)           ->可以查看修改内容（比较的是工作区和暂存区）
+git diff --cached  ->查看修改的内容（比较的是历史区和暂存区）
+git diff <版本号>   ->可以查看修改的内容（比较的是工作区和历史区）
+
+##时光穿梭和修改：
+工作区覆盖：
+git checkout(检验，考核) --<file> ->用暂存区的内容替换工作区的版本，无论工作区是修改还是删除，都可以"一键还原"
+回到上一个暂存区内容：
+git reset HEAD <file>->head指向的版本就是当前版本，因此，Git允许我们在版本的未来之间穿梭，使用命令。
+
+删除暂存区：
+git rm ->将暂存区中的内容全部删除,并且使用命令git commit
+
+回到历史版本：工作区、暂存区、历史区都一致
+git log ->穿梭历史前,可以查看提交历史版本，以便确定要回退到哪个版本。
+git reset --hard <commit_id> ->head指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令。
+
+回到未来版本：
+git reflog ->穿梭未来前，查看命令历史，以便确定要回到未来的哪个版本。
+git reset --head <commit_id> ->head指向的版本就是当前版本，因此，Git允许我们在版本的未来之间穿梭，使用命令
+
+##分支管理：
+git branch(分支)         ->查看分支
+git branch <name>       ->创建分支
+git checkout <name>     ->切换分支
+git checkout -b <name>  ->创建并切换分支
+git branch -D <name>    ->删除分支
+
+创建分支时，是将原来的分支完全复制一份;切换分支后，将文件提交到某个分支上，那么文件就归属到那个分支上，不再属于切换分支前被复制的分支
+git merge <name> + git branch -D <name> ->合并某分支到当前分支,必须在大分支上合并小分支
+合并冲突：当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成.
+
+##关联远程库：本地有内容，远程无内容
+git init（如果想保留空的文件夹增加git.keep文件即可）
+git clone (自动建立连接)
+git pull ->获取远程数据
+增加一个readme文件：
+echo '内容' >>readme.md
+
+增加一个忽略文件：在这个文件写入的内容均不会被提交
+touch .gitignore
+.idea
+nodel_module
+.DS_Store
+brow_components
+
+推送信息：
+git remote add origin https://...->链接远程仓库
+git push origin master -u ->第一次推送master分支所有内容，以后，每次本地提交后，只要有必要，就可以使用命令git push origin master 推送最新内容。如果推送失败，先用git pull抓取远程的新提交。
+git remote -v ->查看远程库信息，使用使用clone或者push命令关联GitHub。
+
+##发布静态页
+如果想让github提供静态网站，可以发布到gh-pages的分支上
+git checkout -b gh-pages
+git add .
+git commit -m 'ok'
+git push origin gh-pages（提交的分支不再是master）
+
+>在setting的时候找到新的网址观看页面，如果不是index.html，需要手动添加后缀名
+
+##交作业流程(也是以后工作中要用到的流程)
+组长：
+组长需要fork老师
+git clone 会自动的建立连接
+git add .
+git commit -m ''
+git push origin master
+==========
+先拉取自己的最新代码 git pull
+和老师建立联系 git remote add teamleader地址
+拉取老师最新代码 git pull teamleader master
+放入自己的代码
+提交到自己的仓库上
+提交到自己的git上 git push teamleader master
+发送pull request请求
+
+组员：
+fork组长的代码
+git clone到自己的文件夹下
+和组长建立连接 git remote add teamleader地址
+放入自己的文件提交
+拉取组长的最新代码  git pull teamleader master
+提交到自己的仓库上
+提交到自己的git上  git push teamleader master
+发送合并请求
