@@ -1,0 +1,112 @@
+﻿git 的使用方式
+命令行
+图形化界面 sourceTree
+
+初始化 git管理的范围
+cd change directory 改变目录
+pwd print working directory 打印当前目录
+
+配置当前用户信息
+可以用户名采用github账号和邮箱，没有配置过不能使用commit
+
+git config --global user.name 'zhufeng'
+git config --global user.email '1160352665@qq.com'
+git config --list 查看配置列表
+
+mkdir创建目录
+mkdir xxx
+
+git init初始化仓库默认隐藏文件
+ls展示所有文件不包括隐藏文件，包括隐藏文件用 ls -a
+touch创建文件 默认空文件
+touch xxx.xx
+cat 查看文件中内容
+cat xxx.xx
+
+vi xxx.xx编辑文件
+打i回车进行编辑
+写好之后按esc 然后按：wq保存退出
+q！是强制退出
+
+创建文件后 查看文件状态
+git status
+工作区 hello （git add -A或者.) 放入暂存区
+暂存区/过渡区 （git commit -m 'xxx'）提交到历史区
+版本库/历史区 放到版本库中不会丢失
+inititial commit
+
+git diff git的不同 比较git的三个区的不同
+git diff master 工作区和历史区
+git diff --cached 暂存区和历史区
+git checkout .把暂存区的内容回滚到工作区
+
+git reset --hard id 把三区的版本回滚到id版本，三区版本相同
+git reflog 查看所有日志，有ID号
+git log 查看提交日志
+
+当我们提交到暂存区，移除暂存区
+git reset HEAD index.txt 在暂存区中将这个文件移除掉
+
+分支
+git branch 查询分支 加文件名就是创建分支
+git checkout 分支名 切换分支
+git branch -D 分知名 删除分支
+
+创建并切换分支
+git checkout -b dev
+默认创建的分支和创建之前的分支是一模一样的
+
+分支提交后
+提交到某个分支上，这个文件就归属于提交的分支，一般情况下，开发项目，都会有一个主分支，在这个主分支上拉取自己的小分支进行开发。如果发生错误不会影响主分支
+git merge dev dev被合并，必须在大分支上合并小分支
+git branch -D dev
+
+rm -rf .git   如果初始化错误需要删除下.git 很危险慎重！！！
+
+可以联合提交
+只限提交过的文件
+git commit -a -m 'xxx'
+解决冲突
+去掉>>>>> =======   <<<<<<保留最终的结果
+
+
+操作git命令 永远在根路径下！！！，
+
+发布静态页面
+如果想让github 提供静态网站 可以发布到gh-pages的分支上
+gitcheckout -b gh-pages
+git add .
+git commit -m 'ok'
+git push origin gh-pages(提交的分支不再是master)
+
+在settings 中找到新的网址 观看页面 如果不是index.html需要手动添加后缀名
+
+组员
+        组员fork组长的代码
+        gitclone到自己的文件夹下
+        和组长建立联系 git remote add teamleader 地址
+         放入自己的文件提交
+         拉取组长的最新代码  git pull team
+
+        git remote add 别名 组长仓库地址 新建一个文件夹把项目放进去
+        git add .
+        git commit -m '灰太狼作业'
+        git pull 别名 master //提交之前先更新
+        git push origin master
+组长
+组长需要fork老师 然后把项目down到桌面上修改记得在webstrom中修改，然后提交到自己项目上，然后点击new pull request 提交到老师那
+
+组长手组员作业先点pull request，然后down自己的库因为有组员提交作业，然后把自己的作业放进去，然后在把老师的代码pull下来，然后在把自己的放上自己的库上，然后在提交给老师
+
+git pull origin master
+git remote add teacher 老师地址
+git pull teacher master
+git add .
+git commit -m 'new'
+git push origin master
+
+老师
+
+
+
+
