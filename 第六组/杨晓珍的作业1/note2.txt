@@ -1,0 +1,73 @@
+将本地一个仓库 推送到远程仓库
+    本地有内容，远程没内容
+    建立一个文件夹（如果当前文件夹中是空文件，文件夹是不会提交的）
+
+    history>1.txt
+    cd ../ 回到上一级目录
+    cd 201703homework
+
+    mkdir info 创建一个info文件
+
+    git init 初始化git 如果想保留空文件夹，建一个.gitkeep文件
+    cd info/ 回到info文件目录
+    touch .gitkeep 创建一个空文件
+    cd  进入根目录
+
+    git status 获取当前状态
+
+    echo '#2017node'>> README.md  一个大于号表示添加 两个大于号表示追加，默认写两个
+    增加一个忽略文件
+    在这个文件中写入的内容均不会提交
+    touch .gitignore
+    一般忽略的文件有
+    .idea  node_modules  .DS_Store  bower_components 也可以自定义
+
+ 操作git命令 永远是在根路径下
+
+ 只有历史区的才能提到github上
+ git add
+ git commit
+
+ 链接远程仓库
+
+ 推送到远程仓库
+ git push origin master -u  加上-u 以后不用指明origin master 可以直接上传
+
+
+ 发布静态页如果想让github提供静态网站 可以发布到 gh-pages 的分支上
+
+ git checkout -b  gh-pages
+ git add .
+ git commit -m 'ok'
+ git push origin origin gh-pages
+
+在设置中找到新的网址 观看页面 如果不是index.html 需要手动添加后缀名
+
+组长需要fork老师的
+
+新建文件夹 info.txt
+在webstrom中写组员信息
+
+git clone 会自动添加远程链接
+
+git remote -v 查看当前远程连接
+
+
+git remote add 组长文件名 fork路径
+
+git remote rm 组长文件名
+
+把自己做的事情，放在一个新的文件夹里
+
+git pull 组长文件夹 master
+
+组员fork组长的代码
+git clone 到自己的文件夹下
+建立联系 git remote add teamleader 地址
+放入自己的文件提交
+拉去组长的最新代码 git pull  teamleader master
+提交到自己的仓库上 git push origin master
+合并提交
+
+git remote rm origin 删除远程链接
+git remote origin set-url[url] 修改远程链接
