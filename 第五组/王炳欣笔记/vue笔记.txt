@@ -1,0 +1,200 @@
+MVC:
+model:数据
+view：视图
+controller：控制器
+
+MVVM：
+model：数据
+view：视图
+viewModel：视图模型，可以实现双向绑定，但是只适用于表单元素 input
+
+
+
+安装Vue：
+
+
+1、可以通过npm，bower(已淘汰)，yarn...安装，安装node会自动安装npm
+
+2、初始化：npm init -y(会生成一个package.json主要用来描述自己的项目，记录安装过的文件有哪些)
+
+3、查看vue：npm info vue
+
+4、安装vue：npm install vue --save/-S(项目依赖) 或者 npm install vue --save-dev/-D(开发依赖)
+
+安装后会默认生成node_modules文件夹，但是上传到git上node_modules文件夹是会忽略的，从git上下载项目后，首先需要npm install 安装依赖
+
+
+介绍：
+
+
+1、用属性之前先在data里声明再使用，不能新增不存在的属性,vue不兼容ie8以下版本包括ie8，不能将原数据指向新的数据，否则不能刷新视图
+
+
+2、引用vue，需要创建一个Vue的构造函数
+
+<div class="app">
+    {{message}}
+</div>
+<script src="vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:'.app',
+        data:{
+            message:'hello world'
+        },
+	methods:{
+	    add(){
+	        return 1;
+	    }
+	}
+    });
+</script>
+
+
+3、el：指定元素范围，指定的元素不能是html或者body，相当于document.querySelector选择器
+
+4、data：数据
+
+5、methods：函数(函数中的this指向的都是当前的实例vm)
+
+6、vm可以代理data属性
+
+7、{{msg}}取值表达式，也称为小胡子语法，将模型的数据取出显示到页面上，而且：
+
+(1)可以放三元表达式
+
+(2)可以赋值
+
+(3)最终的结果需要有返回值
+
+8、Vue的实例可以创建多个 但是正常情况下只有一个
+
+9、一个 Vue 实例其实正是一个 MVVM 模式中所描述的 ViewModel
+
+指令：
+
+
+v- 代表的是指令
+
+1、v-model： 绑定在input等表单元素上，实现双向数据绑定
+
+2、v-once：首次绑定数据后，不随数据变化(绑定一次)
+
+3、v-html：绑定html元素,将html类型的数据正常绑定到页面上
+
+4、v-text：绑定属性，会解决用大括号导致的闪烁问题
+
+5、v-if v-show v-else：
+
+(1)v-if：条件不成立移除dom元素,可以与v-else连用；操作的是dom的移除和新增，操作的是结构；可以使用vue自带的template标签，解决多余标签问题
+
+(2)v-show：不满足条件，操作的是样式，是简单的切换元素的 CSS 属性 display,可以与v-else连用；不能使用template语法
+
+(3)什么时候使用v-if？什么时候使用v-show？
+
+有阻断作用，当外面的条件不满足时，内部代码不在执行，使用if；频繁显示隐藏，选择v-show
+
+一般来说，v‐if 有更高的切换消耗而 v‐show 有更高的初始渲染消耗。因此，如果需要频繁切换 v‐show 较好，如果在运行时条件不大可能改变 v‐if 较好
+
+6、v-for 想循环谁 就写在谁的身上
+
+数组中a in xxx ,那么a的值是 数组里的value，对象中f in xxx ,那么f的值是 对象里的value
+
+如果循环的数组中存在相同项，虽然页面正常渲染，但是控制台会报错，那么添加一个track-by='$index'，控制台就不会报错了
+
+7、v-bind：绑定动态数据，可以简写成：
+
+8、v-on：绑定事件，可以简写成@
+
+函数执行时 带括号 一般是传递参数，会丢失event源，可以手动传递属性$event
+
+默认的onClick会带一层函数 这个函数中 写的内容是 你写的东西 如果只写一个a 则没变化，写了a()才会调用a函数
+
+9、@keyup.键盘值/名
+
+
+修饰符：
+
+
+1、阻止冒泡： @xxx.stop='xxx'
+
+2、捕获:capture
+
+3、只在自己身上触发：@xxx.self='xxx'
+
+4、只触发一次:.once
+
+5、阻止默认事件：@xxx.prevent='xxx'
+
+6、键盘修饰符：@keyup.13='xxx' 或者  @keyup.enter='xxx'
+
+
+绑定class：
+
+
+通过{{}}方式绑定：<div class="{{hello}}">直接取data上对象的属性</div>
+
+优雅的绑定方式：<div :class="hello">直接取data上对象的属性</div>
+
+根据boolean类型增加样式：<div :class="{class1:true,class2:false}"></div>
+
+根据条件绑定样式：<div :class="[class1,isTrue?'class2':'class3']">三元表达式判断</div>
+
+绑定数组：<div :class="[class1,class2]">增加class1,和class2两个样式</div>
+
+绑定对象：<div :class="['color','background',{'back':true}]"</div>
+
+数组和对象混搭：<div :class="[class1,{class2:isTrue}]">比较常见的增加样式用法</div>
+
+
+:绑定的class 和原生的不冲突  如果冲突:号会覆盖普通的class
+
+
+绑定style：
+
+
+直接绑定：<div v-bind:style="{color:'red',background:'yellow'}">行内</div>
+
+绑定对象：<div v-bind:style="className">行内</div>
+
+	     data:{
+                className:{color:'red'}
+	     }
+
+数组方式绑定多组对象：<div v-bind:style="[hello,world]">2个样式</div>
+			    data:{
+    				hello:{color:'red'},
+    				world:{fontSize:'50px'}
+			    }
+
+:style 使用需要厂商前缀的 CSS 属性时，如 transform，Vue.js会自动侦测并添加相应的前缀。
+
+
+computed计算属性：
+
+
+有时候绑定需要计算的方法时，用methods里的函数，只要页面上有任意一个数据 刷新 都会导致函数重新执行 ,所以需要计算的不要在{{}}直接让函数执行，而是用computed计算属性，computed和methods，data同级，不能和data，methods的名字冲突
+
+computed属性由两部分组成：set：设置，在set中可以去影响其他值的改变         get(默认)：获取
+
+computed不是函数，是属性
+
+
+
+watch 监控 :
+
+
+如果一但有数据变化 就可以触发watch
+
+如果很简单的事 可以用watch ,computed不支持异步，watch支持异步
+
+可以将数据 存储到浏览器中 h5 新特性,cookie
+        localStorage.setItem('key','value')
+        localStorage.getItem('key')
+
+localStorage传输的时候  都是以字符串传递 JSON.stringify，取出来的结果可能需要转化承对象 JSON.parse
+
+localStorage.setItem('key',JSON.stringify({name:1}));//使用setItem 会自动转化成字符串
+
+
+

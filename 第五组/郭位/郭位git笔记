@@ -1,0 +1,213 @@
+###git 配置
+
+ 1.初始化错误
+ git init
+ 删除目录
+-rm -rf  .git
+
+![Alt text](./1497060379926.png)
+git config --global user.name 'zhufengzhufeng'
+git config --global user.email '894918097@qq.com'
+git config --list 查看配置列表
+
+git init
+返回桌面
+cd
+![Alt text](./1497060624548.png)
+桌面的文件夹
+cd 文件名/
+![Alt text](./1497060682323.png)
+
+![Alt text](./1497060715332.png)
+文件显示（查看目录中的文件）
+ls -a
+![Alt text](./1497060757267.png)
+mkdir 文件名
+新建文件夹
+![Alt text](./1497060597744.png)
+创建新文件
+touch index.txt
+![Alt text](./1497060878364.png)
+查看文件中内容
+![Alt text](./1497060933884.png)
+添加 vi  index.txt
+![Alt text](./1497061001161.png)
+a i  插入
+ESC退出编辑
+：+
+w保存
+q退出
+q! 强制退出
+查看
+![Alt text](./1497061206209.png)
+
+![Alt text](./1497061105676.
+
+
+
+>工作区      -git add .
+git status 查看文件状态
+
+
+>暂存区/过渡区      git commit -m 'xxxx'
+
+
+>历史区/版本区
+id号
+ 放入其中不                                                                       会丢失
+>git commit 提交到历史区
+
+>git diff 比较不同区的不同
+git diff
+ 比较工作区和暂存区
+
+> git diff  master
+ 比较工作区和历史区
+
+  >git diff --cached
+ 暂存区与历史区
+ 工作区修改，暂存区恢复（暂存区回滚工作区）
+git
+ git checkout index.txt
+
+回滚版本
+git log 查看目录获取id
+git reset  --hard id
+历史区回滚工作区
+git reflog
+查看所有的日志
+git reset --hard 版本号
+去掉暂存区中的内容
+git reset HEAD index.txt 将这个文件回到上一次暂存区
+
+分支
+git branch  查看
+git branch 创建分支
+
+git checkout a
+git checkout -b c切换分支（创建并切换分支）
+>默认创建的分支 和创建之前的分支是一模一样的
+在master  git merge
+git checkout b
+git branch --merged 合并了哪些分支
+git branch --no-merged 合并了哪些分支
+git branch -d a 删除分支
+
+git branch -D a 删除分支
+>分支提交后
+>提交到某个分支上，这个文件就归属与提交的分支，一般情况下，开发项目中，都会有一个照顾分支，在这个主分支上拉去自己的小分支举行开发，如果声明错误不会影响主分支。
+>git merge dev(分支)
+>合并分支：
+>必须在大分支上合并小分之
+>git merge dev
+>git branch -D dev 删除 小分支的
+
+
+####condilct 冲突
+ >修改为正确的提交
+ >去掉 >>>> ===== <<<<<  保留最终的结果即可再次提交
+联合提交
+- 只限提交过的文件
+- git  merge dev
+- git commit -a -m 'result'
+具体：
+git branch
+  608  ls
+  609  git checkout -b dev
+  610  vi index.js
+  611  git commit -a -m 'uglify'
+  612  cat index.js
+  613  clear
+  614  git checkout master
+  615  cat index.js
+  616  vi index.js
+  617  git commit -a -m 'add handsome'
+  618  clear
+  619  cat index.js
+  620  git merge dev
+  621  git commit -a -m 'result'
+  622  git log
+  623  clear
+  624  history > 1.txt
+#####将本地的一个仓库推送到远程仓库
+1.本地有内容，远程无内容
+
+2. 建立一文件夹（不为空）
+3. 初始化git操作git命令，永远在根目录下
+4. 增加README文件,
+5. 增加一个忽略文件
+在这个文件中写入的内容不会提交
+.idea node_modules bower_components
+被忽略的文件
+git
+-u 以后不用指明 连接 直接上传
+## 将本地一个仓库 推送到远程仓库
+- 本地有内容  远程没内容
+- 建立一个文件夹 (如果当前文件夹中是空文件，文件夹是不会提交的)
+```
+mkdir 201703homeword
+```
+- 初始化git (如果想保留空文件夹增加.gitkeep文件即可)
+```
+git init
+```
+- 增加一个README文件
+```
+echo '内容' >> README.md
+```
+- 增加一个忽略文件
+在这个文件中写入的内容 均不会提交
+```
+touch .gitignore
+.idea
+node_modules
+.DS_Store
+bower_components
+```
+- 提交到历史区
+```
+git add .
+git commit -m
+```
+- 链接远程仓库
+```
+git remote add origin https://github.com/zhufengzhufeng/201703node_homework.git
+
+```
+- 推送到远程仓库
+增加-u 以后不用指明 origin和master
+```
+git push origin master -u
+```
+
+> 操作git命令 永远在根路径下！！！
+在settings中找到新的网址 观看网址，如果不是则index.html需要手动添加后缀名
+
+发布静态网页
+1. git checkout -b -pages
+2. git add .
+3. git commit -m “ok”
+4. git push origin gh-pages (提交的分支不在是master)
+
+组长：
+fork 老师的
+git clone fork的地址
+新增文件夹和相关文件
+git add .
+git commit -m‘ ’
+git push origin master
+组员：
+git remote add teamleader 组长网址
+git remote rem teamleader
+git remote -v
+git add .
+git commit -m'作业‘
+git pull teamleader master
+git pull origin mster
+组长提交作业：
+1.拉取自己的代码
+2.和老师建立联系
+3.放入自己的代码
+4.发送pullrequest
+git pull origin master
+git  remote add teacher 网址
