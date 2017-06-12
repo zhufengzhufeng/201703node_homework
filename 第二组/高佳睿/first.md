@@ -208,3 +208,9 @@
     var num=Math.round(Math.random()*(m-n)+n);  [n.m]
     var num=Math.floor(Math.random()*(m-n+1)+n)  [n,m] 
    
+##事件
+   + 事件
+     - e = e || window.event;
+     - cur = e.target || e.srcElement ;  / /  事件源兼容性写法
+     - e.stopPropagation(); e.cancelBubble=true;  // 阻止事件冒泡
+     - e.preventDefault();  e.returnValue=false; //  阻止浏览器默认行为
